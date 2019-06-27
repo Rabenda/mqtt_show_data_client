@@ -4,12 +4,13 @@
 #include <QFile>
 #include <QDebug>
 #include <string>
-
-MosqClient::MosqClient(std::string const& id) :
+#include "mosqclientutils.hpp"
+#include <QJsonDocument>
+MosqClient::MosqClient(QString const& id) :
     id{id}
 {
     mosquitto_lib_init(); // Mandatory initialization for mosquitto library
-    mosq = mosquitto_new(id.c_str(), true, nullptr);
+    mosq = mosquitto_new(id.toStdString().c_str(), true, nullptr);
     this->keepalive = 60;
 
     // topic
@@ -24,6 +25,9 @@ MosqClient::MosqClient(std::string const& id) :
     mosquitto_subscribe(mosq, nullptr, "OnlineNode", QOS_2);
     mosquitto_subscribe(mosq, nullptr, "UpdateNode", QOS_2);
     mosquitto_subscribe(mosq, nullptr, "SensorData", QOS_2);
+
+    //mosquitto_subscribe(mosq, nullptr, "ControlData", QOS_2);
+
     auto on_connect = [](mosquitto *mosq, void *obj, int result) -> void {
         Q_UNUSED(mosq)
         Q_UNUSED(obj)
@@ -45,12 +49,21 @@ MosqClient::MosqClient(std::string const& id) :
         auto dataType = QString{message->topic};
         QLatin1String data(static_cast<char*>(message->payload), message->payloadlen);
         qDebug() << "data context: " << data;
+        auto util = MosqClientUtils::getInstance();
+
+        QJsonDocument dataJson = QJsonDocument::fromJson(
+                    QByteArray::fromRawData(
+                        static_cast<char*>(message->payload),
+                        message->payloadlen)
+                    );
+        qDebug() << dataJson;
+        qDebug() << dataJson["nodeId"];
         if (dataType == "OnlineNode") {
-
+            util->helperDealWithOnlineNode(dataString);
         } else if (dataType == "UpdateNode") {
-
+            util->helperDealWithUpdateNode(dataString);
         } else if (dataType == "SensorData") {
-
+            util->helperDealWithSensorData(dataString);
         } else {
             qDebug() << "Unknown dataType: " << dataType;
         }

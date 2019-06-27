@@ -18,6 +18,6 @@ int main(int argc, char *argv[])
         return -1;
 
     MosqClient mosqClient("ClientCenter");
-//    mosqClient.send_message("hello233");
+    mosqClient.send_message("hello233");
     return app.exec();
 }

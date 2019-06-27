@@ -2,7 +2,6 @@
 #define MOSQCLIENT_HPP
 
 #include <mosquitto.h>
-#include <string>
 #include <QObject>
 #include <QString>
 
@@ -15,13 +14,13 @@ class MosqClient: public QObject
 {
     Q_OBJECT
 private:
-    std::string id;
+    QString id;
     int keepalive;
     mosquitto *mosq;
 public:
-    MosqClient(std::string const& id);
+    MosqClient(QString const& id);
     ~MosqClient();
-    bool send_message(std::string const& message);
+    bool send_message(QString const& message);
 };
 
 #endif // MOSQCLIENT_HPP
