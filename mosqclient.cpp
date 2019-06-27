@@ -19,23 +19,29 @@ MosqClient::MosqClient(std::string const& id) :
 
     // ControlData
 
-    mosquitto_connect_async(mosq, HOST,port,keepalive);     // non blocking connection to broker request
+    mosquitto_connect_async(mosq, HOST, PORT,keepalive);     // non blocking connection to broker request
 
     mosquitto_subscribe(mosq, nullptr, "OnlineNode", QOS_2);
     mosquitto_subscribe(mosq, nullptr, "UpdateNode", QOS_2);
     mosquitto_subscribe(mosq, nullptr, "SensorData", QOS_2);
     auto on_connect = [](mosquitto *mosq, void *obj, int result) -> void {
+        Q_UNUSED(mosq)
+        Q_UNUSED(obj)
         std::cout << ">> MosqClient - connection(" << result << ")" << std::endl;
     };
     mosquitto_connect_callback_set(mosq, on_connect);
 
     auto on_disconnect = [](mosquitto *mosq, void *obj, int result) -> void {
+        Q_UNUSED(mosq)
+        Q_UNUSED(obj)
         std::cout << ">> MosqClient - disconnection(" << result << ")" << std::endl;
     };
 
     mosquitto_disconnect_callback_set(mosq, on_disconnect);
 
     auto message_callback = [](mosquitto *mosq, void *obj, mosquitto_message const *message) -> void {
+        Q_UNUSED(mosq)
+        Q_UNUSED(obj)
         auto dataType = QString{message->topic};
         QLatin1String data(static_cast<char*>(message->payload), message->payloadlen);
         qDebug() << "data context: " << data;

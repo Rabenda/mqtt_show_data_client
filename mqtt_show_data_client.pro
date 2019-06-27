@@ -1,4 +1,4 @@
-QT += quick
+QT += quick sql
 CONFIG += c++11 warn_on
 
 # The following define makes your compiler emit warnings if you use
@@ -15,13 +15,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     mosqclient.hpp \
     sensor.hpp \
-    controller.hpp
+    controller.hpp \
+    mosqclientutils.hpp
 
 SOURCES += \
         main.cpp \
     mosqclient.cpp \
     sensor.cpp \
-    controller.cpp
+    controller.cpp \
+    mosqclientutils.cpp
 
 LIBS += -lmosquitto
 

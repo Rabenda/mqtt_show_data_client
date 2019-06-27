@@ -16,9 +16,6 @@ class MosqClient: public QObject
     Q_OBJECT
 private:
     std::string id;
-    std::string topic;
-    std::string host;
-    int16_t port;
     int keepalive;
     mosquitto *mosq;
 public:
