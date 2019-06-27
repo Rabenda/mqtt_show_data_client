@@ -48,7 +48,7 @@ Window {
         text: qsTr("Hello World")
         fontSizeMode: Text.Fit
         horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 12
+        font.pixelSize: 22
     }
 
     Button {
@@ -57,8 +57,9 @@ Window {
         y: 278
         text: qsTr("Button")
         onClicked: {
-            element.text = qsTr("23333")
+            element.text = element.text + qsTr("1")
         }
+        font.pixelSize: 18
     }
 
     Button {
@@ -66,5 +67,9 @@ Window {
         x: 2
         y: 2
         text: qsTr("Button")
+        onClicked: {
+            element.text = element.text + qsTr("6")
+        }
+        font.pixelSize: 16
     }
 }
