@@ -59,11 +59,11 @@ MosqClient::MosqClient(QString const& id) :
         qDebug() << dataJson;
         qDebug() << dataJson["nodeId"];
         if (dataType == "OnlineNode") {
-            util->helperDealWithOnlineNode(dataString);
+            util->helperDealWithOnlineNode(dataJson);
         } else if (dataType == "UpdateNode") {
-            util->helperDealWithUpdateNode(dataString);
+            util->helperDealWithUpdateNode(dataJson);
         } else if (dataType == "SensorData") {
-            util->helperDealWithSensorData(dataString);
+            util->helperDealWithSensorData(dataJson);
         } else {
             qDebug() << "Unknown dataType: " << dataType;
         }
@@ -82,7 +82,7 @@ MosqClient::~MosqClient() {
     mosquitto_lib_cleanup();    // Mosquitto library cleanup
 }
 
-bool MosqClient::send_message(std::string const& message)
+bool MosqClient::send_message(QString const& message)
 {
     // Send message - depending on QoS, mosquitto lib managed re-submission this the thread
     //
@@ -98,7 +98,7 @@ bool MosqClient::send_message(std::string const& message)
                 nullptr,
                 "ControlData",
                 static_cast<int>(message.length()),
-                message.c_str(),
+                message.toStdString().c_str(),
                 QOS_2,
                 false
                 );

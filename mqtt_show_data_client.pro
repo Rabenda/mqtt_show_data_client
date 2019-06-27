@@ -14,15 +14,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     mosqclient.hpp \
-    sensor.hpp \
-    controller.hpp \
     mosqclientutils.hpp
 
 SOURCES += \
         main.cpp \
     mosqclient.cpp \
-    sensor.cpp \
-    controller.cpp \
     mosqclientutils.cpp
 
 LIBS += -lmosquitto
