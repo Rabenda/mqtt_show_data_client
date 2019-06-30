@@ -6,6 +6,16 @@
 #include <string>
 #include "mosqclientutils.hpp"
 #include <QJsonDocument>
+
+QMutex MosqClient::mutex;
+MosqClient* MosqClient::instance = nullptr;
+MosqClient* MosqClient::getInstance() {
+    QMutexLocker locker(&mutex);
+    if (instance == nullptr)
+        instance = new MosqClient("ClientCenter");
+    return MosqClient::instance;
+}
+
 MosqClient::MosqClient(QString const& id) :
     id{id}
 {
@@ -82,7 +92,7 @@ MosqClient::~MosqClient() {
     mosquitto_lib_cleanup();    // Mosquitto library cleanup
 }
 
-bool MosqClient::send_message(QString const& message)
+bool MosqClient::send_message(QString const& topic, QString const& message)
 {
     // Send message - depending on QoS, mosquitto lib managed re-submission this the thread
     //
@@ -96,7 +106,7 @@ bool MosqClient::send_message(QString const& message)
     int ret  = mosquitto_publish(
                 mosq,
                 nullptr,
-                "ControlData",
+                topic.toStdString().c_str(),
                 static_cast<int>(message.length()),
                 message.toStdString().c_str(),
                 QOS_2,

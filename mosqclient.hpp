@@ -4,6 +4,8 @@
 #include <mosquitto.h>
 #include <QObject>
 #include <QString>
+#include <QMutex>
+#include <QMutexLocker>
 
 constexpr int QOS_0 = 0;
 constexpr int QOS_1 = 1;
@@ -17,10 +19,13 @@ private:
     QString id;
     int keepalive;
     mosquitto *mosq;
-public:
+    static MosqClient* instance;
     MosqClient(QString const& id);
+public:
+    static MosqClient* getInstance();
+    static QMutex mutex;
     ~MosqClient();
-    bool send_message(QString const& message);
+    bool send_message(QString const& topic, QString const& message);
 };
 
 #endif // MOSQCLIENT_HPP

@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    MosqClient mosqClient("ClientCenter");
-    mosqClient.send_message("hello233");
+    auto mosqClient = MosqClient::getInstance();
+    mosqClient->send_message("ControlData", "hello233");
     return app.exec();
 }
