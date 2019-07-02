@@ -15,18 +15,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     mosqclient.hpp \
     mosqclientutils.hpp \
-    mainwindow.hpp
+    mainwindow.hpp \
+    nodeform.h
 
 SOURCES += \
         main.cpp \
     mosqclient.cpp \
     mosqclientutils.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    nodeform.cpp
 
 LIBS += -lmosquitto
 
 
-RESOURCES +=
+RESOURCES += \
+    res.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -40,4 +43,5 @@ else: unix:!android: target.path = /home/pi/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    nodeform.ui
