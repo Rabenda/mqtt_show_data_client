@@ -1,4 +1,4 @@
-QT += quick sql
+QT += sql widgets
 CONFIG += c++11 warn_on
 
 # The following define makes your compiler emit warnings if you use
@@ -14,17 +14,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     mosqclient.hpp \
-    mosqclientutils.hpp
+    mosqclientutils.hpp \
+    mainwindow.hpp
 
 SOURCES += \
         main.cpp \
     mosqclient.cpp \
-    mosqclientutils.cpp
+    mosqclientutils.cpp \
+    mainwindow.cpp
 
 LIBS += -lmosquitto
 
 
-RESOURCES += qml.qrc
+RESOURCES +=
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -36,3 +38,6 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /home/pi/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+    mainwindow.ui
