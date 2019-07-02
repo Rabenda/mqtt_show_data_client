@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class NodeForm;
+class nodeForm;
 }
 
-class NodeForm : public QWidget
+class nodeForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit NodeForm(QWidget *parent = nullptr);
-    ~NodeForm();
+    explicit nodeForm(QWidget *parent = nullptr);
+    ~nodeForm();
 
 private:
-    Ui::NodeForm *ui;
+    Ui::nodeForm *ui;
 };
 
 #endif // NODEFORM_H

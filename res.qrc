@@ -52,6 +52,7 @@
         <file>res/domotics/1227786.png</file>
         <file>res/square/add.ico</file>
         <file>res/square/delete.ico</file>
+        <file>res/square/return.ico</file>
         <file>res/cotroller.ico</file>
         <file>res/node.ico</file>
         <file>res/sensor.ico</file>

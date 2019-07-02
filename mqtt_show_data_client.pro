@@ -13,12 +13,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
+    homeform.h \
     mosqclient.hpp \
     mosqclientutils.hpp \
     mainwindow.hpp \
     nodeform.h
 
 SOURCES += \
+    homeform.cpp \
         main.cpp \
     mosqclient.cpp \
     mosqclientutils.cpp \
@@ -43,5 +45,6 @@ else: unix:!android: target.path = /home/pi/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    homeform.ui \
     mainwindow.ui \
     nodeform.ui
