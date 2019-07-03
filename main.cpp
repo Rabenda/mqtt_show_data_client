@@ -4,9 +4,11 @@
 #include <mosqclient.hpp>
 #include <QtGlobal>
 #include "mainwindow.hpp"
+#include <QObject>
 
 #include <string>
 #include <QString>
+
 int main(int argc, char *argv[])
 {
 //    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));

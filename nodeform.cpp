@@ -1,14 +1,15 @@
 #include "nodeform.h"
 #include "ui_nodeform.h"
 
-nodeForm::nodeForm(QWidget *parent) :
+NodeForm::NodeForm(const QString homeId,QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::nodeForm)
+    ui(new Ui::nodeForm),homeId(homeId)
 {
     ui->setupUi(this);
+    ui->label_homeName->setText(QString(homeId));
 }
 
-nodeForm::~nodeForm()
+NodeForm::~NodeForm()
 {
     delete ui;
 }

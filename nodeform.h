@@ -7,16 +7,17 @@ namespace Ui {
 class nodeForm;
 }
 
-class nodeForm : public QWidget
+class NodeForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit nodeForm(QWidget *parent = nullptr);
-    ~nodeForm();
+    explicit NodeForm(QString homeId,QWidget *parent = nullptr);
+    ~NodeForm();
 
 private:
     Ui::nodeForm *ui;
+    QString homeId;
 };
 
 #endif // NODEFORM_H

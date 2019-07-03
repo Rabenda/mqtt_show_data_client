@@ -13,19 +13,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
+    controllerform.h \
     homeform.h \
+    mainwindow.hpp \
     mosqclient.hpp \
     mosqclientutils.hpp \
-    mainwindow.hpp \
-    nodeform.h
+    nodeform.h \
+    sensorform.h \
+    startform.h \
+    valsetform.h
 
 SOURCES += \
+    controllerform.cpp \
     homeform.cpp \
         main.cpp \
     mosqclient.cpp \
     mosqclientutils.cpp \
     mainwindow.cpp \
-    nodeform.cpp
+    nodeform.cpp \
+    sensorform.cpp \
+    startform.cpp \
+    valsetform.cpp
 
 LIBS += -lmosquitto
 
@@ -45,6 +53,10 @@ else: unix:!android: target.path = /home/pi/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    controllerform.ui \
     homeform.ui \
     mainwindow.ui \
-    nodeform.ui
+    nodeform.ui \
+    sensorform.ui \
+    startform.ui \
+    valsetform.ui
