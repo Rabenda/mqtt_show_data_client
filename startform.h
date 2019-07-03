@@ -11,9 +11,15 @@ class StartForm : public QWidget
 {
     Q_OBJECT
 
+signals:
+    void switchHome();
+
 public:
     explicit StartForm(QWidget *parent = nullptr);
     ~StartForm();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::StartForm *ui;

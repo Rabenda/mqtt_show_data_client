@@ -15,9 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     controllerform.h \
     homeform.h \
-    mainwindow.hpp \
+    mainwindow.h \
     mosqclient.hpp \
     mosqclientutils.hpp \
+    mostype.h \
     nodeform.h \
     sensorform.h \
     startform.h \
@@ -27,9 +28,9 @@ SOURCES += \
     controllerform.cpp \
     homeform.cpp \
         main.cpp \
+    mainwindow.cpp \
     mosqclient.cpp \
     mosqclientutils.cpp \
-    mainwindow.cpp \
     nodeform.cpp \
     sensorform.cpp \
     startform.cpp \

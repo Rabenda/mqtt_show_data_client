@@ -13,6 +13,12 @@ class HomeForm : public QWidget
 {
     Q_OBJECT
 
+signals:
+    void switchStart();
+    void switchNode(QString homeId);
+    void switchSensor(QString homeId);
+    void switchContro(QString homeId);
+
 public:
 
     //MainWindow* main;

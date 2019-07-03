@@ -48,22 +48,33 @@ void HomeForm::on_button_delete_clicked()
 
 void HomeForm::on_button_return_clicked()
 {
-
+    emit switchStart();
 }
 void HomeForm::on_button_sensorList_clicked()
 {
-
+    QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
+    if(modelIndexList.size() > 0) {
+        emit switchSensor(modelIndexList.first().data().value<QString>());
+    }
+    else {
+        setButtonDisable();
+    }
 }
 void HomeForm::on_button_contollerList_clicked()
 {
-
+    QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
+    if(modelIndexList.size() > 0) {
+        emit switchContro(modelIndexList.first().data().value<QString>());
+    }
+    else {
+        setButtonDisable();
+    }
 }
 void HomeForm::on_button_nodeSelect_clicked()
 {
     QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
     if(modelIndexList.size() > 0) {
-        nodeFrom = new NodeForm(modelIndexList.first().data().value<QString>());
-        nodeFrom->show();
+        emit switchNode(modelIndexList.first().data().value<QString>());
     }
     else {
         setButtonDisable();

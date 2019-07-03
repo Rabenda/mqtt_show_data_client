@@ -3,7 +3,7 @@
 
 #include <mosqclient.hpp>
 #include <QtGlobal>
-#include "mainwindow.hpp"
+#include "mainwindow.h"
 #include <QObject>
 
 #include <string>
