@@ -34,11 +34,15 @@ void NodeForm::on_buttonbox_clicked(QAbstractButton *button)
     if(ui->buttonBox->button(QDialogButtonBox::Ok) == button)
     {
         //TODO Update select item
+        auto util = MosqClientUtils::getInstance();
+        util->updateNodeRoomId(this->homeId, bindingNode->stringList());
+        auto inRoomSet = bindingNode->stringList().toSet();
+        auto oldInRoomSet = util->selectNodeInRoom(this->homeId);
+        oldInRoomSet -= inRoomSet;
+        util->updateNodeRoomId(0, QStringList{oldInRoomSet.toList()});
     }
     emit switchHome();
 }
-
-
 
 void NodeForm::refreshNonBindingNode() {
     auto row = nonBindingNode->rowCount();

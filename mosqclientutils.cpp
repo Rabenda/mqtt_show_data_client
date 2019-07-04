@@ -60,7 +60,7 @@ MosqClientUtils::MosqClientUtils(QObject *parent) : QObject(parent)
     }
 
     database.close();
-}
+}updateNodeRoomIdSql
 
 void MosqClientUtils::helperDealWithOnlineNode(QJsonDocument const& json){
     QSqlDatabase db = QSqlDatabase::cloneDatabase(database, "helperDealWithOnlineNode");
@@ -289,4 +289,28 @@ QSet<QString> MosqClientUtils::selectNodeInRoom(int roomId) {
     db.close();
 
     return nodeList;
+}
+
+void MosqClientUtils::updateNodeRoomId(int roomId, QStringList const& list) {
+    QSqlDatabase db = QSqlDatabase::cloneDatabase(database, "updateNodeRoomId");
+    if (!db.open()) {
+        qDebug() << "database open failed: " << db.lastError();
+    } else {
+        qDebug() << "database open successful";
+    }
+
+    auto updateNodeRoomIdSql =
+            QString{"INSERT OR REPLACE INTO node(id, roomId) VALUES (\"%1\", \"%2\")"};
+
+    QSqlQuery query{db};
+    for (auto const& nodeId: list) {
+        auto sql = updateNodeRoomIdSql.arg(nodeId).arg(roomId);
+        qDebug() << sql;
+        if (!query.exec(sql)) {
+            qDebug() << "Database table node update failed: " << query.lastError();
+        } else {
+            qDebug() << "Database table node update sucessful";
+        }
+    }
+    db.close();
 }

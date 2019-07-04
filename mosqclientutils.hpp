@@ -26,6 +26,7 @@ public:
     int getNextRoomId();
     QSet<QString> selectNodeNotInRoom(int roomId);
     QSet<QString> selectNodeInRoom(int roomId);
+    void updateNodeRoomId(int roomId, QStringList const& list);
 
 private:
     static MosqClientUtils* instance;
