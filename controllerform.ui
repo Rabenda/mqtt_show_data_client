@@ -64,6 +64,15 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
    <attribute name="horizontalHeaderHighlightSections">
     <bool>false</bool>
    </attribute>
@@ -93,6 +102,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="button_setVal">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>320</x>
