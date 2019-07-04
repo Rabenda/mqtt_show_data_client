@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QAbstractButton>
+#include <QStandardItemModel>
 
 namespace Ui {
 class ControllerForm;
@@ -24,8 +25,12 @@ public:
     ~ControllerForm();
 
 private:
+    QStandardItemModel  *model;
+
     Ui::ControllerForm *ui;
     QString homeId;
+
+    void refreshData();
 };
 
 #endif // CONTROLLERFORM_H

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QAbstractButton>
+#include <QStandardItemModel>
 
 namespace Ui {
 class SensorForm;
@@ -17,8 +18,11 @@ signals:
 
 private slots:
     void on_buttonbox_clicked(QAbstractButton *button);
+    void on_button_refresh_clicked();
 
 public:
+    QStandardItemModel  *model;
+
     explicit SensorForm(QWidget *parent = nullptr);
     void setHomeId(const QString& homeId);
     ~SensorForm();
@@ -26,6 +30,8 @@ public:
 private:
     Ui::SensorForm *ui;
     QString homeId;
+
+    void refreshData();
 };
 
 #endif // SENSORFORM_H

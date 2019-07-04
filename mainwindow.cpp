@@ -14,10 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedLayout->addWidget(&controllerForm);
     ui->stackedLayout->addWidget(&valSetForm);
 
-
-    mainStackedLayout.setGeometry(QRect(0,0,460,320));
-    mainStackedLayout.setCurrentWidget(&startFrom);
-
     connect(&startFrom,SIGNAL(switchHome()),this,SLOT(stack_change_homeForm()));//start form -> push >>
     connect(&homeForm,SIGNAL(switchStart()),this,SLOT(stack_change_startFrom()));//home form -> push return
     connect(&homeForm,SIGNAL(switchNode(QString)),this,SLOT(stack_change_nodeForm(QString)));//home form -> push nodes

@@ -18,10 +18,21 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>301</width>
-     <height>301</height>
+     <width>300</width>
+     <height>300</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>23</number>
+   </attribute>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -81,7 +92,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="button_refresh">
    <property name="geometry">
     <rect>
      <x>320</x>

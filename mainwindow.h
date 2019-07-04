@@ -41,8 +41,6 @@ private:
     SensorForm sensorForm;
     ControllerForm controllerForm;
     ValSetForm valSetForm;
-
-    QStackedLayout mainStackedLayout;
 };
 
 #endif // MAINWINDOW_H
