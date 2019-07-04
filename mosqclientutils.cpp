@@ -38,7 +38,7 @@ MosqClientUtils::MosqClientUtils(QObject *parent) : QObject(parent)
         qDebug() << "Database table Room create sucessful";
     }
 
-    auto tableNodeCreateSql = "CREATE TABLE IF NOT EXISTS node(id char(20) primary key, roomId int ,status int)";
+    auto tableNodeCreateSql = "CREATE TABLE IF NOT EXISTS node(id char(20) primary key, roomId int DEFAULT 0, status int)";
     if (!query.exec(tableNodeCreateSql)) {
         qDebug() << "Database table Node create failed: " << query.lastError();
     } else {
@@ -254,7 +254,7 @@ QSet<QString> MosqClientUtils::selectNodeNotInRoom(int roomId) {
     }
 
     auto selectTableNodeSql =
-            QString{"SELECT id, roomId FROM node WHERE roomId != \"%1\""}.arg(roomId);
+            QString{"SELECT id, roomId FROM node WHERE roomId != %1"}.arg(roomId);
     QSqlQuery query{selectTableNodeSql, db};
 
     QSet<QString> nodeList;
@@ -277,7 +277,7 @@ QSet<QString> MosqClientUtils::selectNodeInRoom(int roomId) {
     }
 
     auto selectTableNodeSql =
-            QString{"SELECT id, roomId FROM node WHERE roomId = \"%1\""}.arg(roomId);
+            QString{"SELECT id, roomId FROM node WHERE roomId = %1;"}.arg(roomId);
     QSqlQuery query{selectTableNodeSql, db};
 
     QSet<QString> nodeList;

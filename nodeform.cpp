@@ -2,6 +2,7 @@
 #include "ui_nodeform.h"
 #include <QObject>
 #include "mosqclientutils.hpp"
+#include <QDebug>
 
 NodeForm::NodeForm(int roomId,QWidget *parent) :
     QWidget(parent),
@@ -12,7 +13,7 @@ NodeForm::NodeForm(int roomId,QWidget *parent) :
     nonBindingNode = new QStringListModel{};
     ui->list_availableNode->setModel(nonBindingNode);
     bindingNode = new QStringListModel{};
-    ui->list_selectedNode->setModel(nonBindingNode);
+    ui->list_selectedNode->setModel(bindingNode);
     connect(ui->buttonBox,
             &QDialogButtonBox::clicked,
             this,
@@ -53,7 +54,7 @@ void NodeForm::refreshNonBindingNode() {
     nonBindingNode->removeRows(0, row);
     auto util = MosqClientUtils::getInstance();
     auto nodeList = util->selectNodeNotInRoom(this->roomId);
-
+    qDebug() << nodeList;
     for (auto const& node: nodeList) {
         row = nonBindingNode->rowCount();
         nonBindingNode->insertRow(row);
@@ -67,7 +68,7 @@ void NodeForm::refreshBindingNode() {
     auto util = MosqClientUtils::getInstance();
 
     auto nodeList = util->selectNodeInRoom(this->roomId);
-
+    qDebug() << nodeList;
     for (auto const& node: nodeList) {
         row = bindingNode->rowCount();
         bindingNode->insertRow(row);
