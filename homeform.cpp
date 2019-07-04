@@ -1,5 +1,6 @@
 #include "homeform.h"
 #include "ui_homeform.h"
+#include "mosqclientutils.hpp"
 
 HomeForm::HomeForm(QWidget *parent) :
     QWidget(parent),
@@ -26,21 +27,44 @@ HomeForm::~HomeForm()
     delete ui;
 }
 
-void HomeForm::on_button_add_clicked()
-{
-    int row = model->rowCount();
+void HomeForm::listViewInsert(int index) {
     QString data;
-    data.sprintf("Home%d",row);
-
+    data.sprintf("%d", index);
+    auto row = model->rowCount();
     model->insertRow(row);
     model->setData(model->index(row),data);
+}
 
+void HomeForm::refresh() {
+    auto row = model->rowCount();
+    model->removeRows(0, row);
+
+    auto util = MosqClientUtils::getInstance();
+    auto indexs = util->selectRoomId();
+    for (auto const& index: indexs) {
+        listViewInsert(index);
+    }
+}
+
+void HomeForm::on_button_add_clicked()
+{
+    auto util = MosqClientUtils::getInstance();
+
+    int index = util->getNextRoomId();
+    listViewInsert(index);
+    util->helperUpdateRoomId(index);
 }
 void HomeForm::on_button_delete_clicked()
 {
     QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
-    if(modelIndexList.size() > 0)
+
+    if(modelIndexList.size() > 0) {
+        auto roomId = modelIndexList.first().data().toInt();
         model->removeRow(modelIndexList.first().row());
+
+        auto util = MosqClientUtils::getInstance();
+        util->deleteRoomId(roomId);
+    }
     else {
         setButtonDisable();
     }

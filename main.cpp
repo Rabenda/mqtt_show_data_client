@@ -14,8 +14,6 @@ int main(int argc, char *argv[])
 
     MainWindow mainWindow;
     mainWindow.show();
-    QFont font("",72);
-
     auto mosqClient = MosqClient::getInstance();
     mosqClient->send_message("ControlData", "hello233");
     auto font = QFont("", FONT_SIZE);

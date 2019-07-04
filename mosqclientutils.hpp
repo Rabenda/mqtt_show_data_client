@@ -10,6 +10,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QJsonDocument>
+#include <QSet>
+
 class MosqClientUtils : public QObject
 {
     Q_OBJECT
@@ -18,11 +20,17 @@ public:
     void helperDealWithOnlineNode(QJsonDocument const& json);
     void helperDealWithUpdateNode(QJsonDocument const& json);
     void helperDealWithSensorData(QJsonDocument const& json);
+    void helperUpdateRoomId(int roomId);
+    void deleteRoomId(int roomId);
+    QSet<int> selectRoomId();
+    int getNextRoomId();
+    QSet<QString> selectNodeNotInRoom(int roomId);
+    QSet<QString> selectNodeInRoom(int roomId);
+
 private:
     static MosqClientUtils* instance;
     static QMutex mutex;
     explicit MosqClientUtils(QObject *parent = nullptr);
-    QSqlDatabase database;
 signals:
 
 public slots:

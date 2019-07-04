@@ -36,7 +36,7 @@ private slots:
     void on_button_nodeSelect_clicked();
 
     void on_listView_clicked();
-
+    void listViewInsert(int index);
 private:
     QStringListModel *model;
     Ui::HomeForm *ui;

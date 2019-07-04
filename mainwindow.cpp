@@ -41,18 +41,20 @@ void MainWindow::stack_change_startFrom()
 void MainWindow::stack_change_homeForm()
 {
     ui->stackedLayout->setCurrentWidget(&homeForm);
+    homeForm.refresh();
 }
-void MainWindow::stack_change_nodeForm(QString homeId)
+void MainWindow::stack_change_nodeForm(int homeId)
 {
     nodeForm.setHomeId(homeId);
     ui->stackedLayout->setCurrentWidget(&nodeForm);
+    nodeForm.refresh();
 }
-void MainWindow::stack_change_sensorForm(QString homeId)
+void MainWindow::stack_change_sensorForm(int homeId)
 {
     sensorForm.setHomeId(homeId);
     ui->stackedLayout->setCurrentWidget(&sensorForm);
 }
-void MainWindow::stack_change_controllerForm(QString homeId)
+void MainWindow::stack_change_controllerForm(int homeId)
 {
     controllerForm.setHomeId(homeId);
     ui->stackedLayout->setCurrentWidget(&controllerForm);

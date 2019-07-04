@@ -4,33 +4,35 @@
 #include <QJsonObject>
 #include <QJsonValueRef>
 #include "mosqclient.hpp"
-MosqClientUtils* MosqClientUtils::instance = nullptr;
 
+MosqClientUtils* MosqClientUtils::instance = nullptr;
 QMutex MosqClientUtils::mutex;
 
 MosqClientUtils* MosqClientUtils::getInstance() {
     QMutexLocker locker(&mutex);
-    if (instance == nullptr)
+    if (instance == nullptr) {
         instance = new MosqClientUtils;
+    }
     return instance;
 }
 
 MosqClientUtils::MosqClientUtils(QObject *parent) : QObject(parent)
 {
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("data.db");
 
-    if (!database.open()) {
-        qDebug() << "database open failed: " << database.lastError();
-    } else {
-        qDebug() << "database open successful";
-    }
-// "create table room(roomId char(20))
+// "create table room(roomId int primary key AUTOINCREMENT)
 // "create table node(id char(20) primary key, roomId char(20),status int)"
 // "create table controller(id char(20) primary key, type char(20), data float)"
 // "create table sensor(id char(20) primary key, type char(20), data float)"
-    QSqlQuery query;
-    auto tableNodeCreateSql = "CREATE TABLE IF NOT EXISTS node(id char(20) primary key, status int)";
+
+    QSqlQuery query{};
+    auto tableRoomCreateSql = "CREATE TABLE IF NOT EXISTS room(roomId int primary key)";
+    if (!query.exec(tableRoomCreateSql)) {
+        qDebug() << "Database table Room create failed: " << query.lastError();
+    } else {
+        qDebug() << "Database table Room create sucessful";
+    }
+
+    auto tableNodeCreateSql = "CREATE TABLE IF NOT EXISTS node(id char(20) primary key, roomId int ,status int)";
     if (!query.exec(tableNodeCreateSql)) {
         qDebug() << "Database table Node create failed: " << query.lastError();
     } else {
@@ -53,6 +55,7 @@ MosqClientUtils::MosqClientUtils(QObject *parent) : QObject(parent)
 }
 
 void MosqClientUtils::helperDealWithOnlineNode(QJsonDocument const& json){
+
     auto data = json["nodeId"].toString();
     if (data == "")
         return;
@@ -65,7 +68,7 @@ void MosqClientUtils::helperDealWithOnlineNode(QJsonDocument const& json){
     mosqClient->send_message(requestName, "None");
 
     qDebug() << "updateTableOnlineNodeSql : " << updateTableOnlineNodeSql;
-    QSqlQuery query;
+    QSqlQuery query{};
     if (!query.exec(updateTableOnlineNodeSql)) {
         qDebug() << "Database table node insert failed: " << query.lastError();
     } else {
@@ -80,7 +83,7 @@ void MosqClientUtils::helperDealWithUpdateNode(QJsonDocument const& json){
     auto updateTableSensorSql =
             QString("INSERT OR REPLACE INTO sensor(id, type) VALUES (\"%1\", \"%2\")");
 
-    QSqlQuery query;
+    QSqlQuery query{};
     for (auto sensor: sensorArray) {
         auto sensorJsonMap = sensor.toObject();
         auto type = sensorJsonMap["type"].toString();
@@ -120,7 +123,7 @@ void MosqClientUtils::helperDealWithSensorData(QJsonDocument const& json){
     auto updateTableSensorSql =
             QString("INSERT OR REPLACE INTO sensor(id, data) VALUES (\"%1\", \"%2\")");
 
-    QSqlQuery query;
+    QSqlQuery query{};
     for (auto sensor: sensorArray) {
         auto sensorJsonMap = sensor.toObject();
         auto data = sensorJsonMap["sensorVal"].toDouble();
@@ -134,4 +137,77 @@ void MosqClientUtils::helperDealWithSensorData(QJsonDocument const& json){
             qDebug() << "Database table sensor insert sucessful";
         }
     }
+}
+
+void MosqClientUtils::helperUpdateRoomId(int roomId) {
+    QSqlQuery query{};
+    auto updateTableRoomSql =
+            QString("INSERT OR REPLACE INTO room(roomId) VALUES (\"%1\")").arg(roomId);
+    qDebug() << updateTableRoomSql;
+    if (!query.exec(updateTableRoomSql)) {
+        qDebug() << "Database table room insert failed: " << query.lastError();
+    } else {
+        qDebug() << "Database table room insert sucessful";
+    }
+}
+
+void MosqClientUtils::deleteRoomId(int roomId) {
+    QSqlQuery query{};
+    auto deleteTableRoomSql =
+            QString("DELETE FROM room WHERE roomId = \"%1\"").arg(roomId);
+    qDebug() << deleteTableRoomSql;
+    if (!query.exec(deleteTableRoomSql)) {
+        qDebug() << "Database table room delete failed: " << query.lastError();
+    } else {
+        qDebug() << "Database table room delete sucessful";
+    }
+}
+
+QSet<int> MosqClientUtils::selectRoomId() {
+    QSet<int> roomIdList;
+
+    auto selectTableRoomSql = QString("SELECT roomId FROM room");
+    QSqlQuery query{selectTableRoomSql};
+    qDebug() << selectTableRoomSql;
+
+    while (query.next()) {
+        auto roomId = query.value(0).toInt();
+        roomIdList.insert(roomId);
+    }
+    return roomIdList;
+}
+
+int MosqClientUtils::getNextRoomId() {
+    auto numberSet = selectRoomId();
+    int index = 1;
+    while (numberSet.contains(index)) {
+        ++index;
+    }
+    return index;
+}
+
+QSet<QString> MosqClientUtils::selectNodeNotInRoom(int roomId) {
+    auto selectTableNodeSql =
+            QString{"SELECT id, roomId FROM node WHERE roomId != \"%1\""}.arg(roomId);
+    QSqlQuery query{selectTableNodeSql};
+
+    QSet<QString> nodeList;
+    while (query.next()) {
+        auto nodeId = query.value("id").toString();
+        nodeList.insert(nodeId);
+    }
+    return nodeList;
+}
+
+QSet<QString> MosqClientUtils::selectNodeInRoom(int roomId) {
+    auto selectTableNodeSql =
+            QString{"SELECT id, roomId FROM node WHERE roomId = \"%1\""}.arg(roomId);
+    QSqlQuery query{selectTableNodeSql};
+
+    QSet<QString> nodeList;
+    while (query.next()) {
+        auto nodeId = query.value("id").toString();
+        nodeList.insert(nodeId);
+    }
+    return nodeList;
 }

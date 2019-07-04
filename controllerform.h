@@ -21,15 +21,13 @@ private slots:
 
 public:
     explicit ControllerForm(QWidget *parent = nullptr);
-    void setHomeId(const QString& homeId);
+    void setHomeId(int homeId);
     ~ControllerForm();
 
 private:
-    QStandardItemModel  *model;
-
     Ui::ControllerForm *ui;
-    QString homeId;
-
+    QStandardItemModel  *model;
+    int homeId;
     void refreshData();
 };
 

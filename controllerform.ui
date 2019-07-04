@@ -82,6 +82,12 @@
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
    </attribute>
+   <attribute name="verticalHeaderMinimumSectionSize">
+    <number>42</number>
+   </attribute>
+   <attribute name="verticalHeaderDefaultSectionSize">
+    <number>42</number>
+   </attribute>
   </widget>
   <widget class="QLabel" name="label_ico">
    <property name="geometry">
