@@ -1,5 +1,4 @@
 #include <QApplication>
-//#include <QQmlApplicationEngine>
 
 #include <mosqclient.hpp>
 #include <QtGlobal>
@@ -8,21 +7,17 @@
 
 #include <string>
 #include <QString>
-
+#define FONT_SIZE 72
 int main(int argc, char *argv[])
 {
-//    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-
     QApplication app(argc, argv);
 
-//    QQmlApplicationEngine engine;
-//    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-//    if (engine.rootObjects().isEmpty())
-//        return -1;
     MainWindow mainWindow;
     mainWindow.show();
 
     auto mosqClient = MosqClient::getInstance();
     mosqClient->send_message("ControlData", "hello233");
+    auto font = QFont("", FONT_SIZE);
+    app.setFont(font);
     return app.exec();
 }
