@@ -13,25 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label_ico">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>40</y>
-     <width>131</width>
-     <height>131</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="res.qrc">:/res/domotics/1227768.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
@@ -59,6 +40,25 @@
    </property>
    <property name="text">
     <string>Refresh</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_ico">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>40</y>
+     <width>131</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="res.qrc">:/res/domotics/1227768.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label_home">
@@ -92,9 +92,6 @@
    <property name="selectionBehavior">
     <enum>QAbstractItemView::SelectRows</enum>
    </property>
-   <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>23</number>
-   </attribute>
    <attribute name="verticalHeaderVisible">
     <bool>false</bool>
    </attribute>

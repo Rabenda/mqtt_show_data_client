@@ -22,62 +22,28 @@
      <height>21</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
    <property name="standardButtons">
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget_2">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>360</x>
      <y>10</y>
-     <width>241</width>
+     <width>91</width>
      <height>91</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_type_2">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>FAN</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_home_2">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Home1</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_id_2">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>ESPNode-XXXX:1</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="res.qrc">:/res/domotics/1227767.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -91,11 +57,6 @@
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="1" column="0">
      <widget class="QLabel" name="label_6">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
       <property name="text">
        <string>ID:</string>
       </property>
@@ -106,11 +67,6 @@
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_7">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
       <property name="text">
        <string>Type:</string>
       </property>
@@ -121,11 +77,6 @@
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_5">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
       <property name="text">
        <string>Home:</string>
       </property>
@@ -174,11 +125,6 @@
        <height>41</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>0</string>
      </property>
@@ -191,11 +137,6 @@
        <width>81</width>
        <height>31</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>16</pointsize>
-      </font>
      </property>
      <property name="text">
       <string>SetVal:</string>
@@ -228,11 +169,6 @@
        <height>30</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>ESPNode-XXXX:1</string>
      </property>
@@ -245,11 +181,6 @@
        <width>70</width>
        <height>30</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
      </property>
      <property name="text">
       <string>Trigger:</string>
@@ -267,11 +198,6 @@
        <height>29</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>Select</string>
      </property>
@@ -284,11 +210,6 @@
        <width>63</width>
        <height>33</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
      </property>
      <property name="text">
       <string>thres:</string>
@@ -316,11 +237,6 @@
        <height>21</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>255</string>
      </property>
@@ -334,11 +250,6 @@
        <height>21</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>255</string>
      </property>
@@ -351,11 +262,6 @@
        <width>53</width>
        <height>33</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
      </property>
      <property name="text">
       <string>open:</string>
@@ -396,11 +302,6 @@
        <height>33</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>close:</string>
      </property>
@@ -414,35 +315,44 @@
        <height>21</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>255</string>
      </property>
     </widget>
    </widget>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QWidget" name="layoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>110</x>
      <y>10</y>
-     <width>91</width>
+     <width>241</width>
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="res.qrc">:/res/domotics/1227767.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_type_2">
+      <property name="text">
+       <string>FAN</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_home_2">
+      <property name="text">
+       <string>Home1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_id_2">
+      <property name="text">
+       <string>ESPNode-XXXX:1</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>
