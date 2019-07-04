@@ -31,6 +31,7 @@ private:
     static MosqClientUtils* instance;
     static QMutex mutex;
     explicit MosqClientUtils(QObject *parent = nullptr);
+    QSqlDatabase database;
 signals:
 
 public slots:

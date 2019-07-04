@@ -78,7 +78,7 @@ void HomeForm::on_button_sensorList_clicked()
 {
     QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
     if(modelIndexList.size() > 0) {
-        emit switchSensor(modelIndexList.first().data().value<QString>());
+        emit switchSensor(modelIndexList.first().data().toInt());
     }
     else {
         setButtonDisable();
@@ -88,7 +88,7 @@ void HomeForm::on_button_contollerList_clicked()
 {
     QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
     if(modelIndexList.size() > 0) {
-        emit switchContro(modelIndexList.first().data().value<QString>());
+        emit switchContro(modelIndexList.first().data().toInt());
     }
     else {
         setButtonDisable();
@@ -98,7 +98,7 @@ void HomeForm::on_button_nodeSelect_clicked()
 {
     QModelIndexList modelIndexList = ui->listView->selectionModel()->selectedIndexes();
     if(modelIndexList.size() > 0) {
-        emit switchNode(modelIndexList.first().data().value<QString>());
+        emit switchNode(modelIndexList.first().data().toInt());
     }
     else {
         setButtonDisable();

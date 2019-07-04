@@ -16,9 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&startFrom,SIGNAL(switchHome()),this,SLOT(stack_change_homeForm()));//start form -> push >>
     connect(&homeForm,SIGNAL(switchStart()),this,SLOT(stack_change_startFrom()));//home form -> push return
-    connect(&homeForm,SIGNAL(switchNode(QString)),this,SLOT(stack_change_nodeForm(QString)));//home form -> push nodes
-    connect(&homeForm,SIGNAL(switchSensor(QString)),this,SLOT(stack_change_sensorForm(QString)));//home form -> push sensor
-    connect(&homeForm,SIGNAL(switchContro(QString)),this,SLOT(stack_change_controllerForm(QString)));//home form -> push contro
+    connect(&homeForm,SIGNAL(switchNode(int)),this,SLOT(stack_change_nodeForm(int)));//home form -> push nodes
+    connect(&homeForm,SIGNAL(switchSensor(int)),this,SLOT(stack_change_sensorForm(int)));//home form -> push sensor
+    connect(&homeForm,SIGNAL(switchContro(int)),this,SLOT(stack_change_controllerForm(int)));//home form -> push contro
 
     connect(&nodeForm,SIGNAL(switchHome()),this,SLOT(stack_change_homeForm()));//node form -> push ok/cancle
 

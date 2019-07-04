@@ -15,9 +15,9 @@ class HomeForm : public QWidget
 
 signals:
     void switchStart();
-    void switchNode(QString homeId);
-    void switchSensor(QString homeId);
-    void switchContro(QString homeId);
+    void switchNode(int homeId);
+    void switchSensor(int homeId);
+    void switchContro(int homeId);
 
 public:
 
