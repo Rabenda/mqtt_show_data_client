@@ -24,12 +24,12 @@ public:
     QStandardItemModel  *model;
 
     explicit SensorForm(QWidget *parent = nullptr);
-    void setHomeId(int homeId);
+    void setRoomId(int roomId);
     ~SensorForm();
 
 private:
     Ui::SensorForm *ui;
-    int homeId;
+    int roomId;
 
     void refreshData();
 };

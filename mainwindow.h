@@ -27,9 +27,9 @@ public:
 private slots:
     void stack_change_startFrom();
     void stack_change_homeForm();
-    void stack_change_nodeForm(int homeId);
-    void stack_change_sensorForm(int homeId);
-    void stack_change_controllerForm(int homeId);
+    void stack_change_nodeForm(int roomId);
+    void stack_change_sensorForm(int roomId);
+    void stack_change_controllerForm(int roomId);
     void stack_change_setValForm(controller contro);
 
 private:

@@ -3,17 +3,21 @@
 #include <QObject>
 #include "mosqclientutils.hpp"
 
-NodeForm::NodeForm(int homeId,QWidget *parent) :
+NodeForm::NodeForm(int roomId,QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::nodeForm),homeId(homeId)
+    ui(new Ui::nodeForm),roomId(roomId)
 {
     ui->setupUi(this);
-    ui->label_homeName->setText(QString(homeId));
+    ui->label_homeName->setText(QString(roomId));
     nonBindingNode = new QStringListModel{};
     ui->list_availableNode->setModel(nonBindingNode);
     bindingNode = new QStringListModel{};
     ui->list_selectedNode->setModel(nonBindingNode);
-    connect(ui->buttonBox,SIGNAL(clicked(QAbstractButton *)),this,SLOT(on_buttonbox_clicked(QAbstractButton *)),Qt::UniqueConnection);
+    connect(ui->buttonBox,
+            &QDialogButtonBox::clicked,
+            this,
+            &NodeForm::on_buttonbox_clicked,
+            Qt::UniqueConnection);
 }
 
 NodeForm::~NodeForm()
@@ -21,11 +25,11 @@ NodeForm::~NodeForm()
     delete ui;
 }
 
-void NodeForm::setHomeId(int homeId)
+void NodeForm::setRoomId(int roomId)
 {
-    this->homeId = homeId;
+    this->roomId = roomId;
     QString data;
-    data.sprintf("%d", homeId);
+    data.sprintf("%d", roomId);
     ui->label_homeName->setText(data);
 }
 
@@ -35,9 +39,9 @@ void NodeForm::on_buttonbox_clicked(QAbstractButton *button)
     {
         //TODO Update select item
         auto util = MosqClientUtils::getInstance();
-        util->updateNodeRoomId(this->homeId, bindingNode->stringList());
+        util->updateNodeRoomId(this->roomId, bindingNode->stringList());
         auto inRoomSet = bindingNode->stringList().toSet();
-        auto oldInRoomSet = util->selectNodeInRoom(this->homeId);
+        auto oldInRoomSet = util->selectNodeInRoom(this->roomId);
         oldInRoomSet -= inRoomSet;
         util->updateNodeRoomId(0, QStringList{oldInRoomSet.toList()});
     }
@@ -48,7 +52,7 @@ void NodeForm::refreshNonBindingNode() {
     auto row = nonBindingNode->rowCount();
     nonBindingNode->removeRows(0, row);
     auto util = MosqClientUtils::getInstance();
-    auto nodeList = util->selectNodeNotInRoom(this->homeId);
+    auto nodeList = util->selectNodeNotInRoom(this->roomId);
 
     for (auto const& node: nodeList) {
         row = nonBindingNode->rowCount();
@@ -62,7 +66,7 @@ void NodeForm::refreshBindingNode() {
     bindingNode->removeRows(0, row);
     auto util = MosqClientUtils::getInstance();
 
-    auto nodeList = util->selectNodeInRoom(this->homeId);
+    auto nodeList = util->selectNodeInRoom(this->roomId);
 
     for (auto const& node: nodeList) {
         row = bindingNode->rowCount();

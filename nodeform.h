@@ -18,20 +18,17 @@ signals:
 private slots:
     void on_buttonbox_clicked(QAbstractButton *button);
 
-
 public:
-    explicit NodeForm(int homeId = 0,QWidget *parent = nullptr);
-    void setHomeId(int homeId);
+    explicit NodeForm(int roomId = 0,QWidget *parent = nullptr);
+    void setRoomId(int roomId);
     void refresh();
 
     ~NodeForm();
-
-
 private:
-    Ui::nodeForm *ui;
+    Ui::nodeForm* ui;
     QStringListModel* nonBindingNode;
     QStringListModel* bindingNode;
-    int homeId;
+    int roomId;
     void refreshBindingNode();
     void refreshNonBindingNode();
 };

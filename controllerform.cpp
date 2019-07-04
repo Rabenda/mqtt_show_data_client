@@ -38,11 +38,11 @@ void ControllerForm::on_buttonbox_clicked(QAbstractButton *button)
     emit switchHome();
 }
 
-void ControllerForm::setHomeId(int homeId)
+void ControllerForm::setRoomId(int roomId)
 {
-    this->homeId = homeId;
+    this->roomId = roomId;
     QString data;
-    data.sprintf("%d", homeId);
+    data.sprintf("%d", roomId);
     ui->label_home->setText(data);
 }
 

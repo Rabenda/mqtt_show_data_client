@@ -49,11 +49,11 @@ void SensorForm::on_button_refresh_clicked()
     ui->tableView->setColumnWidth(2,98);
 }
 
-void SensorForm::setHomeId(int homeId)
+void SensorForm::setRoomId(int roomId)
 {
-    this->homeId = homeId;
+    this->roomId = roomId;
     QString data;
-    data.sprintf("%d", homeId);
+    data.sprintf("%d", roomId);
     ui->label_home->setText(data);
 }
 

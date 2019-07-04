@@ -60,7 +60,7 @@ MosqClientUtils::MosqClientUtils(QObject *parent) : QObject(parent)
     }
 
     database.close();
-}updateNodeRoomIdSql
+}
 
 void MosqClientUtils::helperDealWithOnlineNode(QJsonDocument const& json){
     QSqlDatabase db = QSqlDatabase::cloneDatabase(database, "helperDealWithOnlineNode");

@@ -15,13 +15,11 @@ class HomeForm : public QWidget
 
 signals:
     void switchStart();
-    void switchNode(int homeId);
-    void switchSensor(int homeId);
-    void switchContro(int homeId);
+    void switchNode(int roomId);
+    void switchSensor(int roomId);
+    void switchContro(int roomId);
 
 public:
-
-    //MainWindow* main;
     explicit HomeForm(QWidget *parent = nullptr);
     ~HomeForm();
 
@@ -38,8 +36,8 @@ private slots:
     void on_listView_clicked();
     void listViewInsert(int index);
 private:
-    QStringListModel *model;
-    Ui::HomeForm *ui;
+    QStringListModel* model;
+    Ui::HomeForm* ui;
     NodeForm* nodeFrom;
 
     void setButtonDisable();
