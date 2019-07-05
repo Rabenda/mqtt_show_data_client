@@ -332,21 +332,21 @@
    </property>
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="3" column="0">
-     <widget class="QLabel" name="label_type_2">
+     <widget class="QLabel" name="label_type">
       <property name="text">
        <string>FAN</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="label_home_2">
+     <widget class="QLabel" name="label_home">
       <property name="text">
        <string>Home1</string>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="label_id_2">
+     <widget class="QLabel" name="label_id">
       <property name="text">
        <string>ESPNode-XXXX:1</string>
       </property>

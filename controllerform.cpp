@@ -24,6 +24,7 @@ ControllerForm::ControllerForm(QWidget *parent) :
     ui->tableView->setColumnWidth(2,98);
 
     connect(ui->buttonBox,SIGNAL(clicked(QAbstractButton *)),this,SLOT(on_buttonbox_clicked(QAbstractButton *)),Qt::UniqueConnection);
+    connect(ui->button_setVal,SIGNAL(clicked()),this,SLOT(on_button_setVal_clicked()),Qt::UniqueConnection);
 }
 
 ControllerForm::~ControllerForm()
@@ -58,6 +59,18 @@ void ControllerForm::refreshData()
         model->setItem(i,0,new QStandardItem(controller.id));
         model->setItem(i,1,new QStandardItem(controller.type));
         model->setItem(i,2,new QStandardItem(data));
+    }
+}
+
+void ControllerForm::on_button_setVal_clicked()
+{
+    QModelIndexList modelIndexList = ui->tableView->selectionModel()->selectedIndexes();
+    if(modelIndexList.size() > 0) {
+        Controller contro;
+        int row = modelIndexList.first().row();
+        contro.id = model->index(row,0).data().value<QString>();
+        contro.type = model->index(row,1).data().value<QString>();
+        emit switchValSet(roomId,contro);
     }
 }
 
