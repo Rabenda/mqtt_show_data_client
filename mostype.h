@@ -3,22 +3,22 @@
 
 #include <QString>
 
-struct sensor
+struct Sensor
 {
     QString id;
     QString type;
-    double val;
+    double data;
 };
 
-struct controller
+struct Controller
 {
     QString id;
     QString type;
-    int val;
-    sensor* bindSensor;
+    double data;
+    Sensor* bindSensor;
     float sensorThreshold;
-    int openVal;
-    int colseVal;
+    double openVal;
+    double colseVal;
 };
 
 #endif // MOSTYPE_H

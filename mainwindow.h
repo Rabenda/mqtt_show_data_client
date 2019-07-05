@@ -30,7 +30,7 @@ private slots:
     void stack_change_nodeForm(int roomId);
     void stack_change_sensorForm(int roomId);
     void stack_change_controllerForm(int roomId);
-    void stack_change_setValForm(controller contro);
+    void stack_change_setValForm(Controller contro);
 
 private:
     Ui::MainWindow *ui;

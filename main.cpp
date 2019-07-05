@@ -1,13 +1,11 @@
 #include <QApplication>
-
-#include <mosqclient.hpp>
 #include <QtGlobal>
-#include "mainwindow.h"
 #include <QObject>
-
-#include <string>
 #include <QString>
+#include "mosqclient.hpp"
+#include "mainwindow.h"
 #define FONT_SIZE 72
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);

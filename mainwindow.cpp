@@ -64,7 +64,7 @@ void MainWindow::stack_change_controllerForm(int roomId)
     controllerForm.setRoomId(roomId);
     ui->stackedLayout->setCurrentWidget(&controllerForm);
 }
-void MainWindow::stack_change_setValForm(controller contro)
+void MainWindow::stack_change_setValForm(Controller contro)
 {
     Q_UNUSED(contro)
 }

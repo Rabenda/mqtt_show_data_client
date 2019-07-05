@@ -11,6 +11,7 @@
 #include <QSqlError>
 #include <QJsonDocument>
 #include <QSet>
+#include "mostype.h"
 
 class MosqClientUtils : public QObject
 {
@@ -27,6 +28,8 @@ public:
     QSet<QString> selectNodeNotInRoom(int roomId);
     QSet<QString> selectNodeInRoom(int roomId);
     void updateNodeRoomId(int roomId, QStringList const& list);
+    QVector<Sensor> selectSensorFromRoomId(int roomId);
+    QVector<Controller> selectControllerFromRoomId(int roomId);
 
 private:
     static MosqClientUtils* instance;

@@ -1,6 +1,7 @@
 #include "controllerform.h"
 #include "ui_controllerform.h"
 #include <QList>
+#include "mosqclientutils.hpp"
 
 ControllerForm::ControllerForm(QWidget *parent) :
     QWidget(parent),
@@ -12,7 +13,7 @@ ControllerForm::ControllerForm(QWidget *parent) :
     model->setColumnCount(3);
     model->setHeaderData(0,Qt::Horizontal,QString("id"));
     model->setHeaderData(1,Qt::Horizontal,QString("type"));
-    model->setHeaderData(2,Qt::Horizontal,QString("val"));
+    model->setHeaderData(2,Qt::Horizontal,QString("data"));
 
     ui->tableView->setModel(model);
     ui->tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
@@ -48,16 +49,17 @@ void ControllerForm::setRoomId(int roomId)
 
 void ControllerForm::refreshData()
 {
-    model->setItem(0,0,new QStandardItem("1"));
-    model->setItem(0,1,new QStandardItem("fan"));
-    model->setItem(0,2,new QStandardItem("180"));
+    model->removeRows(0, model->rowCount());
 
-    model->setItem(1,0,new QStandardItem("2"));
-    model->setItem(1,1,new QStandardItem("light"));
-    model->setItem(1,2,new QStandardItem("12.5"));
-
-    model->setItem(2,0,new QStandardItem("3"));
-    model->setItem(2,1,new QStandardItem("curtain"));
-    model->setItem(2,2,new QStandardItem("0"));
+    auto util = MosqClientUtils::getInstance();
+    auto controllerDataList = util->selectSensorFromRoomId(this->roomId);
+    for (int i = 0; i < controllerDataList.length(); ++i) {
+        auto const& controller = controllerDataList[i];
+        QString data;
+        data.sprintf("%lf", controller.data);
+        model->setItem(i,0,new QStandardItem(controller.id));
+        model->setItem(i,1,new QStandardItem(controller.type));
+        model->setItem(i,2,new QStandardItem(data));
+    }
 }
 

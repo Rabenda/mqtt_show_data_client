@@ -158,8 +158,7 @@ void MosqClientUtils::helperDealWithSensorData(QJsonDocument const& json){
         auto sensorJsonMap = sensor.toObject();
         auto data = sensorJsonMap["sensorVal"].toDouble();
         auto sensorId = sensorJsonMap["sensorId"].toString();
-        auto updateTableSensorDataSql =
-                updateTableSensorSql.arg(sensorId).arg(data);
+        auto updateTableSensorDataSql = updateTableSensorSql.arg(sensorId).arg(data);
         qDebug() << "updateTableSensorDataSql: " <<updateTableSensorDataSql;
         if (!query.exec(updateTableSensorDataSql)) {
             qDebug() << "Database table sensor insert failed: " << query.lastError();
@@ -314,3 +313,69 @@ void MosqClientUtils::updateNodeRoomId(int roomId, QStringList const& list) {
     }
     db.close();
 }
+
+QVector<Sensor> MosqClientUtils::selectSensorFromRoomId(int roomId) {
+    QSqlDatabase db = QSqlDatabase::cloneDatabase(database, "selectSensorFromRoomId");
+    if (!db.open()) {
+        qDebug() << "database open failed: " << db.lastError();
+    } else {
+        qDebug() << "database open successful";
+    }
+    auto nodeList = selectNodeInRoom(roomId);
+    QSqlQuery query{db};
+    QVector<Sensor> sensorList;
+    auto selectSensorDataSql = QString{"SELECT id, type, data FROM sensor WHERE id like \"%1\""};
+    for (auto const& nodeId: nodeList) {
+        auto sql = selectSensorDataSql.arg(nodeId);
+        qDebug() << sql;
+        if (!query.exec(sql)) {
+            qDebug() << "Database table node update failed: " << query.lastError();
+        } else {
+            qDebug() << "Database table node update sucessful";
+        }
+        while (query.next()) {
+            Sensor sensor;
+            sensor.id = query.value("id").toString();
+            sensor.type = query.value("type").toString();
+            sensor.data = query.value("data").toDouble();
+            sensorList.append(sensor);
+        }
+    }
+    db.close();
+
+    return sensorList;
+}
+
+QVector<Controller> MosqClientUtils::selectControllerFromRoomId(int roomId) {
+    QSqlDatabase db = QSqlDatabase::cloneDatabase(database, "selectControllerFromRoomId");
+    if (!db.open()) {
+        qDebug() << "database open failed: " << db.lastError();
+    } else {
+        qDebug() << "database open successful";
+    }
+    auto nodeList = selectNodeInRoom(roomId);
+    QSqlQuery query{db};
+    QVector<Controller> controllerList;
+    auto selectControllerDataSql =
+            QString{"SELECT id, type, data FROM controller WHERE id like \"%1\""};
+    for (auto const& nodeId: nodeList) {
+        auto sql = selectControllerDataSql.arg(nodeId);
+        qDebug() << sql;
+        if (!query.exec(sql)) {
+            qDebug() << "Database table node update failed: " << query.lastError();
+        } else {
+            qDebug() << "Database table node update sucessful";
+        }
+        while (query.next()) {
+            Controller controller;
+            controller.id = query.value("id").toString();
+            controller.type = query.value("type").toString();
+            controller.data = query.value("data").toDouble();
+            controllerList.append(controller);
+        }
+    }
+    db.close();
+
+    return controllerList;
+}
+

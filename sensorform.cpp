@@ -1,5 +1,7 @@
 #include "sensorform.h"
 #include "ui_sensorform.h"
+#include "mosqclientutils.hpp"
+#include <QString>
 
 SensorForm::SensorForm(QWidget *parent) :
     QWidget(parent),
@@ -59,16 +61,16 @@ void SensorForm::setRoomId(int roomId)
 
 void SensorForm::refreshData()
 {
-    model->setItem(0,0,new QStandardItem("1"));
-    model->setItem(0,1,new QStandardItem("light"));
-    model->setItem(0,2,new QStandardItem("12.5"));
+    model->removeRows(0, model->rowCount());
 
-
-    model->setItem(1,0,new QStandardItem("2"));
-    model->setItem(1,1,new QStandardItem("DHT11_T"));
-    model->setItem(1,2,new QStandardItem("0"));
-
-    model->setItem(2,0,new QStandardItem("2"));
-    model->setItem(2,1,new QStandardItem("DHT11_H"));
-    model->setItem(2,2,new QStandardItem("0"));
+    auto util = MosqClientUtils::getInstance();
+    auto sensorDataList = util->selectSensorFromRoomId(this->roomId);
+    for (int i = 0; i < sensorDataList.length(); ++i) {
+        auto const& sensor = sensorDataList[i];
+        QString data;
+        data.sprintf("%lf", sensor.data);
+        model->setItem(i,0,new QStandardItem(sensor.id));
+        model->setItem(i,1,new QStandardItem(sensor.type));
+        model->setItem(i,2,new QStandardItem(data));
+    }
 }
