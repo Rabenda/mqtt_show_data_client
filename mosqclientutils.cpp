@@ -123,13 +123,16 @@ void MosqClientUtils::helperDealWithUpdateNode(QJsonDocument const& json){
             QString("INSERT OR REPLACE INTO controller(id, type) VALUES (\"%1\", \"%2\")");
 
     for (auto controller: controllerArray) {
+
         auto controllerJsonMap = controller.toObject();
+        qDebug() << controllerJsonMap;
+
         auto type = controllerJsonMap["controllerType"].toString();
         auto controllerId = controllerJsonMap["controllerId"].toString();
         auto updateTableControllerDataSql =
                 updateTableControllerSql.arg(controllerId).arg(type);
-        qDebug() << "updateTableControllerSql: " <<updateTableControllerSql;
-        if (!query.exec(updateTableControllerSql)) {
+        qDebug() << "updateTableControllerDataSql: " <<updateTableControllerDataSql;
+        if (!query.exec(updateTableControllerDataSql)) {
             qDebug() << "Database table controller insert failed: " << query.lastError();
         } else {
             qDebug() << "Database table controller insert sucessful";
@@ -324,9 +327,10 @@ QVector<Sensor> MosqClientUtils::selectSensorFromRoomId(int roomId) {
     auto nodeList = selectNodeInRoom(roomId);
     QSqlQuery query{db};
     QVector<Sensor> sensorList;
-    auto selectSensorDataSql = QString{"SELECT id, type, data FROM sensor WHERE id like \"%1\""};
+    auto selectSensorDataSql =
+            QString{"SELECT id, type, data FROM sensor WHERE id like \"%1\""};
     for (auto const& nodeId: nodeList) {
-        auto sql = selectSensorDataSql.arg(nodeId);
+        auto sql = selectSensorDataSql.arg(nodeId + "%");
         qDebug() << sql;
         if (!query.exec(sql)) {
             qDebug() << "Database table node update failed: " << query.lastError();
@@ -359,7 +363,7 @@ QVector<Controller> MosqClientUtils::selectControllerFromRoomId(int roomId) {
     auto selectControllerDataSql =
             QString{"SELECT id, type, data FROM controller WHERE id like \"%1\""};
     for (auto const& nodeId: nodeList) {
-        auto sql = selectControllerDataSql.arg(nodeId);
+        auto sql = selectControllerDataSql.arg(nodeId + "%");
         qDebug() << sql;
         if (!query.exec(sql)) {
             qDebug() << "Database table node update failed: " << query.lastError();
