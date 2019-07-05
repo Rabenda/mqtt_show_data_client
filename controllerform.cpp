@@ -70,6 +70,7 @@ void ControllerForm::on_button_setVal_clicked()
         int row = modelIndexList.first().row();
         contro.id = model->index(row,0).data().value<QString>();
         contro.type = model->index(row,1).data().value<QString>();
+        contro.data = model->index(row,2).data().toInt();
         emit switchValSet(roomId,contro);
     }
 }

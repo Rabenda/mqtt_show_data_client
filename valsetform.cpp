@@ -2,7 +2,11 @@
 #include "ui_valsetform.h"
 #include <QString>
 #include "mosqclientutils.hpp"
+#include "mosqclient.hpp"
 #include <QDial>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QDebug>
 ValSetForm::ValSetForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ValSetForm)
@@ -28,6 +32,7 @@ void ValSetForm::refresh()
     ui->label_home->setText(str);
     ui->label_id->setText(contro.id);
     ui->label_type->setText(contro.type);
+    ui->dial->setValue(contro.data);
 }
 
 void ValSetForm::on_buttonbox_clicked(QAbstractButton *button)
@@ -49,8 +54,14 @@ void ValSetForm::helperUpdateControllerData()
     auto util = MosqClientUtils::getInstance();
     util->updateControllerValue(this->contro);
 
-
-
+    auto json = QString{
+            "{\"controller\":[{\"controllerId\":\"%1\",\"controllerVal\":%2}]}"
+    }.arg(contro.id).arg(contro.data);
+    qDebug() << "json: " << json;
+    auto mosqClient = MosqClient::getInstance();
+    auto topic = QString{"ControllerData-%1"}.arg(contro.id.split(':').first());
+    qDebug() << "topic: " << topic;
+    mosqClient->send_message(topic, json);
 }
 
 void ValSetForm::on_dial_changed(int value)

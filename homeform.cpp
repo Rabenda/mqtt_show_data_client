@@ -12,10 +12,10 @@ HomeForm::HomeForm(QWidget *parent) :
     ui->listView->setModel(model);
     //model
 
-    connect(ui->button_add,&QPushButton::clicked,
-            this,&HomeForm::on_button_add_clicked,Qt::UniqueConnection);
-    connect(ui->button_delete,&QPushButton::clicked,
-            this,&HomeForm::on_button_delete_clicked,Qt::UniqueConnection);
+//    connect(ui->button_add,&QPushButton::clicked,
+//            this,&HomeForm::on_button_add_clicked,Qt::UniqueConnection);
+//    connect(ui->button_delete,&QPushButton::clicked,
+//            this,&HomeForm::on_button_delete_clicked,Qt::UniqueConnection);
     connect(ui->button_return,&QPushButton::clicked,
             this,&HomeForm::on_button_return_clicked,Qt::UniqueConnection);
     connect(ui->button_sensorList,&QPushButton::clicked,
