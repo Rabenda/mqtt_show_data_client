@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&controllerForm,&ControllerForm::switchValSet,
             this,&MainWindow::stack_change_setValForm);//contro form -> val set form
 
+    connect(&valSetForm, &ValSetForm::switchContro,
+            this,&MainWindow::stack_change_controllerForm); // valset from -> controller from
+
     this->hide();
 }
 

@@ -1,7 +1,7 @@
 #include "valsetform.h"
 #include "ui_valsetform.h"
 #include <QString>
-
+#include "mosqclientutils.hpp"
 ValSetForm::ValSetForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ValSetForm)
@@ -25,5 +25,20 @@ void ValSetForm::refresh()
 
 void ValSetForm::on_buttonbox_clicked(QAbstractButton *button)
 {
-    Q_UNUSED(button);
+    if(ui->buttonBox->button(QDialogButtonBox::Ok) == button)
+    {
+        this->helperUpdateControllerData();
+    }
+    emit switchContro();
+}
+
+void ValSetForm::on_pushButton_clicked()
+{
+    this->helperUpdateControllerData();
+}
+
+void ValSetForm::helperUpdateControllerData()
+{
+    auto util = MosqClientUtils::getInstance();
+    util->updateControllerValue(this->contro);
 }

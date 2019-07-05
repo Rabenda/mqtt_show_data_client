@@ -30,6 +30,7 @@ public:
     void updateNodeRoomId(int roomId, QStringList const& list);
     QVector<Sensor> selectSensorFromRoomId(int roomId);
     QVector<Controller> selectControllerFromRoomId(int roomId);
+    void updateControllerValue(Controller const& controller);
 
 private:
     static MosqClientUtils* instance;

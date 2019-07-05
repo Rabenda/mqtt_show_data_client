@@ -383,3 +383,27 @@ QVector<Controller> MosqClientUtils::selectControllerFromRoomId(int roomId) {
     return controllerList;
 }
 
+void MosqClientUtils::updateControllerValue(Controller const& controller) {
+    QSqlDatabase db = QSqlDatabase::cloneDatabase(database, "updateControllerValue");
+    if (!db.open()) {
+        qDebug() << "database open failed: " << db.lastError();
+    } else {
+        qDebug() << "database open successful";
+    }
+
+    QSqlQuery query{db};
+    auto updateControllerDataSql =
+            QString{"UPDATE controller SET data = %1 WHERE id = \"%2\""}
+            .arg(controller.data)
+            .arg(controller.id);
+    qDebug() << updateControllerDataSql;
+    if (!query.exec(updateControllerDataSql)) {
+        qDebug() << "Database table controller select failed: " << query.lastError();
+    } else {
+        qDebug() << "Database table controller select sucessful";
+    }
+
+    db.close();
+}
+
+

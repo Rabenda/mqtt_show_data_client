@@ -19,6 +19,8 @@ signals:
 private slots:
     void on_buttonbox_clicked(QAbstractButton *button);
 
+    void on_pushButton_clicked();
+
 public:
     int roomId;
     Controller contro;
@@ -29,6 +31,8 @@ public:
 
 private:
     Ui::ValSetForm *ui;
+
+    void helperUpdateControllerData();
 };
 
 #endif // VALSETFORM_H
