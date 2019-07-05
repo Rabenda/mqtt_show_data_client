@@ -23,8 +23,6 @@ ControllerForm::ControllerForm(QWidget *parent) :
     ui->tableView->setColumnWidth(1,100);
     ui->tableView->setColumnWidth(2,98);
 
-    refreshData();
-
     connect(ui->buttonBox,SIGNAL(clicked(QAbstractButton *)),this,SLOT(on_buttonbox_clicked(QAbstractButton *)),Qt::UniqueConnection);
 }
 

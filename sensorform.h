@@ -26,6 +26,7 @@ public:
     explicit SensorForm(QWidget *parent = nullptr);
     void setRoomId(int roomId);
     ~SensorForm();
+    void refresh() {refreshData();}
 
 private:
     Ui::SensorForm *ui;

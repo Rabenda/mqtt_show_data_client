@@ -23,6 +23,7 @@ public:
     explicit ControllerForm(QWidget *parent = nullptr);
     void setRoomId(int roomId);
     ~ControllerForm();
+    void refresh() {refreshData();}
 
 private:
     Ui::ControllerForm* ui;

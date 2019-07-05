@@ -58,11 +58,13 @@ void MainWindow::stack_change_sensorForm(int roomId)
 {
     sensorForm.setRoomId(roomId);
     ui->stackedLayout->setCurrentWidget(&sensorForm);
+    sensorForm.refresh();
 }
 void MainWindow::stack_change_controllerForm(int roomId)
 {
     controllerForm.setRoomId(roomId);
     ui->stackedLayout->setCurrentWidget(&controllerForm);
+    controllerForm.refresh();
 }
 void MainWindow::stack_change_setValForm(Controller contro)
 {
