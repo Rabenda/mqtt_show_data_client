@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QAbstractButton>
 #include <QStandardItemModel>
+#include "mostype.h"
 
 namespace Ui {
 class ControllerForm;
@@ -15,9 +16,11 @@ class ControllerForm : public QWidget
 
 signals:
     void switchHome();
+    void switchValSet(int roomId,Controller contro);
 
 private slots:
     void on_buttonbox_clicked(QAbstractButton *button);
+    void on_button_setVal_clicked();
 
 public:
     explicit ControllerForm(QWidget *parent = nullptr);

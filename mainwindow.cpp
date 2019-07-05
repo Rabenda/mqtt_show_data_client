@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&controllerForm,&ControllerForm::switchHome,
             this,&MainWindow::stack_change_homeForm);//sensor form -> push ok/cancle
 
+    connect(&controllerForm,&ControllerForm::switchValSet,
+            this,&MainWindow::stack_change_setValForm);//contro form -> val set form
+
     this->hide();
 }
 
@@ -66,7 +69,10 @@ void MainWindow::stack_change_controllerForm(int roomId)
     ui->stackedLayout->setCurrentWidget(&controllerForm);
     controllerForm.refresh();
 }
-void MainWindow::stack_change_setValForm(Controller contro)
+void MainWindow::stack_change_setValForm(int roomId ,Controller contro)
 {
-    Q_UNUSED(contro)
+    valSetForm.roomId = roomId;
+    valSetForm.contro = contro;
+    ui->stackedLayout->setCurrentWidget(&valSetForm);
+    valSetForm.refresh();
 }
