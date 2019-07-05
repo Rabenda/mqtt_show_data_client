@@ -328,9 +328,9 @@ QVector<Sensor> MosqClientUtils::selectSensorFromRoomId(int roomId) {
     QSqlQuery query{db};
     QVector<Sensor> sensorList;
     auto selectSensorDataSql =
-            QString{"SELECT id, type, data FROM sensor WHERE id like \"%1*\""};
+            QString{"SELECT id, type, data FROM sensor WHERE id like \"%1\""};
     for (auto const& nodeId: nodeList) {
-        auto sql = selectSensorDataSql.arg(nodeId);
+        auto sql = selectSensorDataSql.arg(nodeId + "%");
         qDebug() << sql;
         if (!query.exec(sql)) {
             qDebug() << "Database table node update failed: " << query.lastError();
@@ -361,9 +361,9 @@ QVector<Controller> MosqClientUtils::selectControllerFromRoomId(int roomId) {
     QSqlQuery query{db};
     QVector<Controller> controllerList;
     auto selectControllerDataSql =
-            QString{"SELECT id, type, data FROM controller WHERE id like \"%1*\""};
+            QString{"SELECT id, type, data FROM controller WHERE id like \"%1\""};
     for (auto const& nodeId: nodeList) {
-        auto sql = selectControllerDataSql.arg(nodeId);
+        auto sql = selectControllerDataSql.arg(nodeId + "%");
         qDebug() << sql;
         if (!query.exec(sql)) {
             qDebug() << "Database table node update failed: " << query.lastError();
