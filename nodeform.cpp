@@ -3,6 +3,7 @@
 #include <QObject>
 #include "mosqclientutils.hpp"
 #include <QDebug>
+#include <QPushButton>
 
 NodeForm::NodeForm(int roomId,QWidget *parent) :
     QWidget(parent),
@@ -18,6 +19,24 @@ NodeForm::NodeForm(int roomId,QWidget *parent) :
             &QDialogButtonBox::clicked,
             this,
             &NodeForm::on_buttonbox_clicked,
+            Qt::UniqueConnection);
+
+    connect(ui->button_insertSelect,
+            &QPushButton::clicked,
+            this,
+            &NodeForm::on_button_insertSelect_clicked,
+            Qt::UniqueConnection);
+
+    connect(ui->button_removeSelect,
+            &QPushButton::clicked,
+            this,
+            &NodeForm::on_button_removeSelect_clicked,
+            Qt::UniqueConnection);
+
+    connect(ui->button_removeAll,
+            &QPushButton::clicked,
+            this,
+            &NodeForm::on_button_removeAll_clicked,
             Qt::UniqueConnection);
 }
 
@@ -47,6 +66,32 @@ void NodeForm::on_buttonbox_clicked(QAbstractButton *button)
         util->updateNodeRoomId(0, QStringList{oldInRoomSet.toList()});
     }
     emit switchHome();
+}
+
+void NodeForm::on_button_insertSelect_clicked()
+{
+    QModelIndexList modelIndexList = ui->list_availableNode->selectionModel()->selectedIndexes();
+    if(modelIndexList.size() > 0) {
+        bindingNode->insertRow(bindingNode->rowCount(),modelIndexList.first());
+        nonBindingNode->removeRow(modelIndexList.first().row());
+    }
+}
+
+void NodeForm::on_button_removeSelect_clicked()
+{
+    QModelIndexList modelIndexList = ui->list_availableNode->selectionModel()->selectedIndexes();
+    if(modelIndexList.size() > 0) {
+        nonBindingNode->insertRow(nonBindingNode->rowCount(),modelIndexList.first());
+        bindingNode->removeRow(modelIndexList.first().row());
+    }
+}
+
+void NodeForm::on_button_removeAll_clicked()
+{
+    for (int i = 0;i < bindingNode->rowCount(); i++) {
+        nonBindingNode->insertRow(nonBindingNode->rowCount(),bindingNode->index(i));
+        bindingNode->removeRow(i);
+    }
 }
 
 void NodeForm::refreshNonBindingNode() {

@@ -110,6 +110,12 @@
            <iconset resource="res.qrc">
             <normaloff>:/res/sensor.ico</normaloff>:/res/sensor.ico</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
@@ -130,6 +136,12 @@
            <iconset resource="res.qrc">
             <normaloff>:/res/cotroller.ico</normaloff>:/res/cotroller.ico</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item>
@@ -149,6 +161,12 @@
           <property name="icon">
            <iconset resource="res.qrc">
             <normaloff>:/res/node.ico</normaloff>:/res/node.ico</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>72</width>
+            <height>72</height>
+           </size>
           </property>
          </widget>
         </item>

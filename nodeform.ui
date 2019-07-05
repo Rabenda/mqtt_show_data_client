@@ -79,7 +79,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="button_removeSelect_2">
+         <widget class="QPushButton" name="button_removeAll">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>

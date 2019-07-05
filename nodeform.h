@@ -17,6 +17,9 @@ signals:
 
 private slots:
     void on_buttonbox_clicked(QAbstractButton *button);
+    void on_button_insertSelect_clicked();
+    void on_button_removeSelect_clicked();
+    void on_button_removeAll_clicked();
 
 public:
     explicit NodeForm(int roomId = 0,QWidget *parent = nullptr);
