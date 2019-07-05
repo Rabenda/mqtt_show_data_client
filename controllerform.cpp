@@ -50,11 +50,11 @@ void ControllerForm::refreshData()
     model->removeRows(0, model->rowCount());
 
     auto util = MosqClientUtils::getInstance();
-    auto controllerDataList = util->selectSensorFromRoomId(this->roomId);
+    auto controllerDataList = util->selectControllerFromRoomId(this->roomId);
     for (int i = 0; i < controllerDataList.length(); ++i) {
         auto const& controller = controllerDataList[i];
         QString data;
-        data.sprintf("%lf", controller.data);
+        data.sprintf("%d", controller.data);
         model->setItem(i,0,new QStandardItem(controller.id));
         model->setItem(i,1,new QStandardItem(controller.type));
         model->setItem(i,2,new QStandardItem(data));

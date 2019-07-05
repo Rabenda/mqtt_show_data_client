@@ -45,7 +45,7 @@ MosqClientUtils::MosqClientUtils(QObject *parent) : QObject(parent)
         qDebug() << "Database table Node create sucessful";
     }
 
-    auto tableControllerCreateSql = "CREATE TABLE IF NOT EXISTS controller(id char(20) primary key, type char(20), data float)";
+    auto tableControllerCreateSql = "CREATE TABLE IF NOT EXISTS controller(id char(20) primary key, type char(20), data int DEFAULT -1)";
     if (!query.exec(tableControllerCreateSql)) {
         qDebug() << "Database table controller create failed: " << query.lastError();
     } else {
@@ -333,9 +333,9 @@ QVector<Sensor> MosqClientUtils::selectSensorFromRoomId(int roomId) {
         auto sql = selectSensorDataSql.arg(nodeId + "%");
         qDebug() << sql;
         if (!query.exec(sql)) {
-            qDebug() << "Database table node update failed: " << query.lastError();
+            qDebug() << "Database table sensor select failed: " << query.lastError();
         } else {
-            qDebug() << "Database table node update sucessful";
+            qDebug() << "Database table sensor select sucessful";
         }
         while (query.next()) {
             Sensor sensor;
@@ -366,15 +366,15 @@ QVector<Controller> MosqClientUtils::selectControllerFromRoomId(int roomId) {
         auto sql = selectControllerDataSql.arg(nodeId + "%");
         qDebug() << sql;
         if (!query.exec(sql)) {
-            qDebug() << "Database table node update failed: " << query.lastError();
+            qDebug() << "Database table controller select failed: " << query.lastError();
         } else {
-            qDebug() << "Database table node update sucessful";
+            qDebug() << "Database table controller select sucessful";
         }
         while (query.next()) {
             Controller controller;
             controller.id = query.value("id").toString();
             controller.type = query.value("type").toString();
-            controller.data = query.value("data").toDouble();
+            controller.data = query.value("data").toInt();
             controllerList.append(controller);
         }
     }

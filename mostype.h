@@ -14,11 +14,11 @@ struct Controller
 {
     QString id;
     QString type;
-    double data;
+    int data;
     Sensor* bindSensor;
     float sensorThreshold;
-    double openVal;
-    double colseVal;
+    int openVal;
+    int colseVal;
 };
 
 #endif // MOSTYPE_H
