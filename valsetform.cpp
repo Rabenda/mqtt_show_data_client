@@ -7,6 +7,8 @@ ValSetForm::ValSetForm(QWidget *parent) :
     ui(new Ui::ValSetForm)
 {
     ui->setupUi(this);
+
+    connect(ui->dial,SIGNAL(valueChanged()),this,SLOT(on_dial_changed()));
 }
 
 ValSetForm::~ValSetForm()
@@ -25,5 +27,13 @@ void ValSetForm::refresh()
 
 void ValSetForm::on_buttonbox_clicked(QAbstractButton *button)
 {
-    Q_UNUSED(button);
+    Q_UNUSED(button)
+}
+
+void ValSetForm::on_dial_changed()
+{
+    QString str;
+    str.sprintf("%d",ui->dial->value());
+    ui->label_val->setText(str);
+    contro.data = ui->dial->value();
 }

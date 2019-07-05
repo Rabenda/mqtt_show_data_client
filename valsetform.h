@@ -18,6 +18,7 @@ signals:
 
 private slots:
     void on_buttonbox_clicked(QAbstractButton *button);
+    void on_dial_changed();
 
 public:
     int roomId;
