@@ -12,14 +12,21 @@ HomeForm::HomeForm(QWidget *parent) :
     ui->listView->setModel(model);
     //model
 
-    connect(ui->button_add,SIGNAL(clicked()),this,SLOT(()),Qt::UniqueConnection);
-    connect(ui->button_delete,SIGNAL(clicked()),this,SLOT(on_button_delete_clicked()),Qt::UniqueConnection);
-    connect(ui->button_return,SIGNAL(clicked()),this,SLOT(on_button_return_clicked()),Qt::UniqueConnection);
-    connect(ui->button_sensorList,SIGNAL(clicked()),this,SLOT(on_button_sensorList_clicked()),Qt::UniqueConnection);
-    connect(ui->button_contollerList,SIGNAL(clicked()),this,SLOT(on_button_contollerList_clicked()),Qt::UniqueConnection);
-    connect(ui->button_nodeSelect,SIGNAL(clicked()),this,SLOT(on_button_nodeSelect_clicked()),Qt::UniqueConnection);
+    connect(ui->button_add,&QPushButton::clicked,
+            this,&HomeForm::on_button_add_clicked,Qt::UniqueConnection);
+    connect(ui->button_delete,&QPushButton::clicked,
+            this,&HomeForm::on_button_delete_clicked,Qt::UniqueConnection);
+    connect(ui->button_return,&QPushButton::clicked,
+            this,&HomeForm::on_button_return_clicked,Qt::UniqueConnection);
+    connect(ui->button_sensorList,&QPushButton::clicked,
+            this,&HomeForm::on_button_sensorList_clicked,Qt::UniqueConnection);
+    connect(ui->button_contollerList,&QPushButton::clicked,
+            this,&HomeForm::on_button_contollerList_clicked,Qt::UniqueConnection);
+    connect(ui->button_nodeSelect,&QPushButton::clicked,
+            this,&HomeForm::on_button_nodeSelect_clicked,Qt::UniqueConnection);
 
-    connect(ui->listView,SIGNAL(clicked()),this,SLOT(on_listView_clicked()),Qt::UniqueConnection);
+    connect(ui->listView,&QListView::clicked,
+            this,&HomeForm::on_listView_clicked,Qt::UniqueConnection);
 }
 
 HomeForm::~HomeForm()

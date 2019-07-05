@@ -107,7 +107,7 @@ void MosqClientUtils::helperDealWithUpdateNode(QJsonDocument const& json){
     QSqlQuery query{db};
     for (auto sensor: sensorArray) {
         auto sensorJsonMap = sensor.toObject();
-        auto type = sensorJsonMap["type"].toString();
+        auto type = sensorJsonMap["sensorType"].toString();
         auto sensorId = sensorJsonMap["sensorId"].toString();
         auto updateTableSensorDataSql =
                 updateTableSensorSql.arg(sensorId).arg(type);
@@ -124,7 +124,7 @@ void MosqClientUtils::helperDealWithUpdateNode(QJsonDocument const& json){
 
     for (auto controller: controllerArray) {
         auto controllerJsonMap = controller.toObject();
-        auto type = controllerJsonMap["type"].toString();
+        auto type = controllerJsonMap["controllerType"].toString();
         auto controllerId = controllerJsonMap["controllerId"].toString();
         auto updateTableControllerDataSql =
                 updateTableControllerSql.arg(controllerId).arg(type);
@@ -151,14 +151,14 @@ void MosqClientUtils::helperDealWithSensorData(QJsonDocument const& json){
     auto sensorArray = json["sensor"].toArray();
     auto controllerArray = json["controller"].toArray();
     auto updateTableSensorSql =
-            QString("INSERT OR REPLACE INTO sensor(id, data) VALUES (\"%1\", \"%2\")");
+            QString("UPDATE sensor SET data = %1 WHERE id = \"%2\"");
 
     QSqlQuery query{db};
     for (auto sensor: sensorArray) {
         auto sensorJsonMap = sensor.toObject();
         auto data = sensorJsonMap["sensorVal"].toDouble();
         auto sensorId = sensorJsonMap["sensorId"].toString();
-        auto updateTableSensorDataSql = updateTableSensorSql.arg(sensorId).arg(data);
+        auto updateTableSensorDataSql = updateTableSensorSql.arg(data).arg(sensorId);
         qDebug() << "updateTableSensorDataSql: " <<updateTableSensorDataSql;
         if (!query.exec(updateTableSensorDataSql)) {
             qDebug() << "Database table sensor insert failed: " << query.lastError();
