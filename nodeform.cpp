@@ -72,16 +72,20 @@ void NodeForm::on_button_insertSelect_clicked()
 {
     QModelIndexList modelIndexList = ui->list_availableNode->selectionModel()->selectedIndexes();
     if(modelIndexList.size() > 0) {
-        bindingNode->insertRow(bindingNode->rowCount(),modelIndexList.first());
+        int row = bindingNode->rowCount();
+        bindingNode->insertRow(row);
+        bindingNode->setData(bindingNode->index(row),modelIndexList.first().data().value<QString>());
         nonBindingNode->removeRow(modelIndexList.first().row());
     }
 }
 
 void NodeForm::on_button_removeSelect_clicked()
 {
-    QModelIndexList modelIndexList = ui->list_availableNode->selectionModel()->selectedIndexes();
+    QModelIndexList modelIndexList = ui->list_selectedNode->selectionModel()->selectedIndexes();
     if(modelIndexList.size() > 0) {
-        nonBindingNode->insertRow(nonBindingNode->rowCount(),modelIndexList.first());
+        int row = nonBindingNode->rowCount();
+        nonBindingNode->insertRow(row);
+        nonBindingNode->setData(nonBindingNode->index(row),modelIndexList.first().data().value<QString>());
         bindingNode->removeRow(modelIndexList.first().row());
     }
 }
@@ -89,7 +93,9 @@ void NodeForm::on_button_removeSelect_clicked()
 void NodeForm::on_button_removeAll_clicked()
 {
     for (int i = 0;i < bindingNode->rowCount(); i++) {
-        nonBindingNode->insertRow(nonBindingNode->rowCount(),bindingNode->index(i));
+        int row = nonBindingNode->rowCount();
+        nonBindingNode->insertRow(row);
+        nonBindingNode->setData(nonBindingNode->index(row),bindingNode->index(i).data().value<QString>());
         bindingNode->removeRow(i);
     }
 }
