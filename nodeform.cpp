@@ -21,17 +21,17 @@ NodeForm::NodeForm(int roomId,QWidget *parent) :
             &NodeForm::on_buttonbox_clicked,
             Qt::UniqueConnection);
 
-    connect(ui->button_insertSelect,
-            &QPushButton::clicked,
-            this,
-            &NodeForm::on_button_insertSelect_clicked,
-            Qt::UniqueConnection);
+//    connect(ui->button_insertSelect,
+//            &QPushButton::clicked,
+//            this,
+//            &NodeForm::on_button_insertSelect_clicked,
+//            Qt::UniqueConnection);
 
-    connect(ui->button_removeSelect,
-            &QPushButton::clicked,
-            this,
-            &NodeForm::on_button_removeSelect_clicked,
-            Qt::UniqueConnection);
+//    connect(ui->button_removeSelect,
+//            &QPushButton::clicked,
+//            this,
+//            &NodeForm::on_button_removeSelect_clicked,
+//            Qt::UniqueConnection);
 
     connect(ui->button_removeAll,
             &QPushButton::clicked,
@@ -70,12 +70,19 @@ void NodeForm::on_buttonbox_clicked(QAbstractButton *button)
 
 void NodeForm::on_button_insertSelect_clicked()
 {
-    QModelIndexList modelIndexList = ui->list_availableNode->selectionModel()->selectedIndexes();
-    if(modelIndexList.size() > 0) {
+//    QModelIndexList modelIndexList = ui->list_availableNode->selectionModel()->selectedRows();
+//    if(modelIndexList.size() > 0) {
+//        int row = bindingNode->rowCount();
+//        bindingNode->insertRow(row);
+//        bindingNode->setData(bindingNode->index(row),modelIndexList.first().data().value<QString>());
+//        nonBindingNode->removeRow(modelIndexList.first().row());
+//    }
+    auto index = ui->list_availableNode->currentIndex();
+    if (index.isValid()) {
         int row = bindingNode->rowCount();
         bindingNode->insertRow(row);
-        bindingNode->setData(bindingNode->index(row),modelIndexList.first().data().value<QString>());
-        nonBindingNode->removeRow(modelIndexList.first().row());
+        bindingNode->setData(bindingNode->index(row), index.data().toString());
+        nonBindingNode->removeRow(index.row());
     }
 }
 
