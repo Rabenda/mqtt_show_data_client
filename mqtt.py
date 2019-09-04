@@ -5,6 +5,7 @@ import paho.mqtt.client as mqtt
 import time
 import smbus
 import Adafruit_DHT
+import RPi.GPIO as GPIO # 导入库，并进行别名的设置
 
 # DHT11 Init Config
 # Set sensor type : Options are DHT11,DHT22 or AM2302
@@ -60,6 +61,14 @@ def readLight(addr=DEVICE):
     return convertToNumber(data)
 # --------------------------------
 
+# MQ sensor Init
+CHANNEL=21 # GPIO21 确定引脚口
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(CHANNEL,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+# 初始化引脚，将16号引脚设置为输入下拉电阻，因为在初始化的时候不确定的的引电平，因此这样设置是用来保证精准，
+#（但是也可以不写“pull_up_down=GPIO.PUD_DOWN”）
+# -------------------------------
+
 # mqtt Init Config
 
 clientId = "PI6Node-178"
@@ -80,7 +89,8 @@ client.publish("OnlineNode", json.dumps(onlineNodeMessage))
 updateNodeMessage = {"nodeId": clientId, "sensor": [
     {"sensorType": "dht11_t", "sensorId": clientId + ":1"},
     {"sensorType": "dht11_h", "sensorId": clientId + ":2"},
-    {"sensorType": "light", "sensorId": clientId + ":3"}
+    {"sensorType": "light", "sensorId": clientId + ":3"},
+    {"sensorType": "MQ-2", "sensorId": clientId + ":4"}
 ], "controller": []}
 print(json.dumps(updateNodeMessage))
 client.publish("UpdateNode", json.dumps(updateNodeMessage))
@@ -100,11 +110,17 @@ while True:
         continue
     lightLevel = readLight(addr=DEVICE)
     print("Light Level : " + format(lightLevel, '.2f') + " lx")
+    mqSensor = GPIO.input(CHANNEL)
+    if mqSensor == True: # 如果为高电平，说明MQ-2正常，并打印“OK”
+        print ('正常')
+    else: # 如果为低电平，说明MQ-2检测到有害气体，并打印“dangerous”
+        print ( ' 检测到危险气体 ! ! ! ' )
     data = {"nodeId": clientId,
             "sensor": [
                 {"sensorId": clientId + ":1", "sensorVal": temperature},
                 {"sensorId": clientId + ":2", "sensorVal": humidity},
-                {"sensorId": clientId + ":3", "sensorVal": lightLevel}
+                {"sensorId": clientId + ":3", "sensorVal": lightLevel},
+		{"sensorId": clientId + ":4", "sensorVal": mqSensor}
             ]}
     print(json.dumps(data))
     client.publish("SensorData", json.dumps(data))
